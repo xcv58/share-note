@@ -2,6 +2,7 @@ import React from "react";
 import { createFirebaseApp } from "@/firebase/client";
 import { getFirestore } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
+import Editor from "@/components/Editor";
 
 const app = createFirebaseApp();
 const db = getFirestore(app);
@@ -19,13 +20,20 @@ async function getNoteById(noteid: string) {
 export default async function Page({ params }: any) {
   const { noteid } = params;
   const { data, error } = await getNoteById(noteid);
+  const text = data?.text;
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       {noteid}: {data!.text}
+      <Editor {...{ noteid, data }} />
     </div>
   );
 }
