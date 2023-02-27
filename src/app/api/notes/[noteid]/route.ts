@@ -26,11 +26,14 @@ export async function GET(request: Request, { params }: any) {
   } else {
     // doc.data() will be undefined in this case
     console.log("No such document!");
-    return new Response(JSON.stringify({ message: `Not Found` }), {
-      status: 404,
-      headers: {
-        "content-type": "application/json",
-      },
-    });
+    return new Response(
+      JSON.stringify({ message: `Note id "${noteid}" not found` }),
+      {
+        status: 404,
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    );
   }
 }
